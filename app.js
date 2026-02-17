@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn("Firebase not properly configured. Using local storage for demo.");
         initializeSampleData();
     }
+    
+    // Handle Enter key in employee ID input
+    const employeeIdInput = document.getElementById('employeeId');
+    if (employeeIdInput) {
+        employeeIdInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                searchEmployee();
+            }
+        });
+    }
 });
 
 // Initialize sample employee data for demonstration
@@ -367,7 +377,7 @@ function hideError() {
 
 // Format currency
 function formatCurrency(amount) {
-    return '₹' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    return '₹' + amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 // Format date
@@ -385,14 +395,4 @@ function formatPayPeriod(period) {
     return date.toLocaleDateString('en-US', options);
 }
 
-// Handle Enter key in employee ID input
-document.addEventListener('DOMContentLoaded', function() {
-    const employeeIdInput = document.getElementById('employeeId');
-    if (employeeIdInput) {
-        employeeIdInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                searchEmployee();
-            }
-        });
-    }
-});
+
